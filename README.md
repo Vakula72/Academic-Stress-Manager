@@ -73,3 +73,13 @@ git push -u origin main
 ```
 
 The `.gitignore` excludes virtual environments, `__pycache__`, `.env` files, and local SQLite databases.
+
+## Vercel Deploy
+
+This repository includes `api/index.py` and `vercel.json` for Vercel's Python serverless runtime.
+
+Recommended Vercel environment variable:
+
+- `SECRET_KEY`: any long random value for Flask sessions.
+
+SQLite on Vercel uses `/tmp/academic_stress_manager.db` by default. That is enough for a demo, but `/tmp` is temporary serverless storage, so data can disappear after redeploys or cold starts. For persistent production data, use an external database and set `DATABASE_URL`.

@@ -4,13 +4,19 @@ Uses SQLite with Flask-SQLAlchemy for ORM.
 """
 
 import os
+import tempfile
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # Database path. Local development uses SQLite in the project folder; deploys can set DATABASE_URL or DATABASE_PATH.
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DATABASE_PATH = os.environ.get("DATABASE_PATH", os.path.join(BASE_DIR, "database.db"))
+DEFAULT_DATABASE_PATH = (
+    os.path.join(tempfile.gettempdir(), "academic_stress_manager.db")
+    if os.environ.get("VERCEL")
+    else os.path.join(BASE_DIR, "database.db")
+)
+DATABASE_PATH = os.environ.get("DATABASE_PATH", DEFAULT_DATABASE_PATH)
 
 db = SQLAlchemy()
 
@@ -151,5 +157,7 @@ def init_db(app):
     db.init_app(app)
     with app.app_context():
         db.create_all()
+
+
 
 
