@@ -51,6 +51,3 @@ python app.py
 - `DATABASE_PATH`: optional SQLite file path. Defaults to `database.db` in the project folder.
 - `DATABASE_URL`: optional full SQLAlchemy database URL. If set, it takes priority over `DATABASE_PATH`.
 
-## Deploy
-
-This project includes a `Procfile` and `wsgi.py`, so Python hosts that support Procfile-based apps can start it with:
